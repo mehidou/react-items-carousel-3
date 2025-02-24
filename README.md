@@ -3,7 +3,7 @@ react-items-carousel
 
 # Installation
 ```
-$ npm install react-items-carousel --save
+$ npm install react-items-carousel-3 --save
 ```
 
 # [Demos](https://kareemaly.github.io/react-items-carousel/)
