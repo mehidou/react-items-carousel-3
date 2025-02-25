@@ -1,5 +1,9 @@
 react-items-carousel
 ---------------
+This is a fork of [react-items-carousel] with the following changes:
+- Security updates
+- Upgrade to version 18.3.0 of react
+- Updated dependencies
 
 # Installation
 ```
@@ -12,7 +16,7 @@ $ npm install react-items-carousel-3 --save
 
 ```javascript
 import React, { useState } from 'react';
-import ItemsCarousel from 'react-items-carousel';
+import ItemsCarousel from 'react-items-carousel-3';
 
 export default () => {
   const [activeItemIndex, setActiveItemIndex] = useState(0);
