@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Icon, Col, Tag, Typography } from 'antd';
+import { Button, Col, Tag, Typography } from 'antd';
+import { RightOutlined, LeftOutlined } from '@ant-design/icons'; // ✅ Import des icônes
 import JSONEditor from './JSONEditor';
 import EditorViewer from './EditorViewer';
 import variations from './variations';
@@ -9,8 +10,7 @@ import ItemsCarousel from '../../src/ItemsCarousel';
 import CenteredRow from './CenteredRow';
 import DemoHeader from './DemoHeader';
 
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 
 const Variations = styled.div`
   display: flex;
@@ -29,39 +29,52 @@ export class ItemsCarouselPlayground extends React.Component {
     activeVariation: variations[0],
   };
 
+  handleChangeVariation = (variation) => {
+    this.setState({
+      activeItemIndex: 0,
+      activeVariation: variation
+    });
+  };
+
+  handleJSONChange = ({ noOfChildren, wrapperStyle, componentProps }) => {
+    this.setState((prevState) => ({
+      activeVariation: {
+        ...prevState.activeVariation,
+        state: { noOfChildren, wrapperStyle, componentProps },
+      },
+    }));
+  };
+
   render() {
-    const { activeVariation } = this.state;
-    const {
-      noOfChildren,
-      wrapperStyle,
-      componentProps,
-    } = activeVariation.state;
+    const { activeVariation, activeItemIndex } = this.state;
+    const { noOfChildren, wrapperStyle, componentProps } = activeVariation.state;
 
     const children = createImageChildren(noOfChildren);
 
     return (
       <Wrapper>
         <DemoHeader
-          title={'Playground'}
-          description={'Play around with props to see if this library suits your needs'}
+          title="Playground"
+          description="Play around with props to see if this library suits your needs"
         />
         <div style={wrapperStyle}>
           <ItemsCarousel
             {...componentProps}
-            activeItemIndex={this.state.activeItemIndex}
-            requestToChangeActive={value => this.setState({ activeItemIndex: value })}
+            activeItemIndex={activeItemIndex}
+            requestToChangeActive={(value) => this.setState({ activeItemIndex: value })}
             rightChevron={
               <Button shape="circle">
-                <Icon type="right" />
+                <RightOutlined /> {/* ✅ Icône corrigée */}
               </Button>
             }
             leftChevron={
               <Button shape="circle">
-                <Icon type="left" />
+                <LeftOutlined /> {/* ✅ Icône corrigée */}
               </Button>
             }
-            children={children}
-          />
+          >
+            {children}
+          </ItemsCarousel>
         </div>
         <CenteredRow gutter={12}>
           <Col xs={24} md={12}>
@@ -71,34 +84,21 @@ export class ItemsCarouselPlayground extends React.Component {
                 <Variation
                   checked={variation.name === activeVariation.name}
                   key={index}
-                  onChange={() => this.setState({ activeItemIndex: 0, activeVariation: variation })}
+                  onChange={() => this.handleChangeVariation(variation)}
                 >
                   {variation.name}
                 </Variation>
               ))}
             </Variations>
             <JSONEditor
-              json={{
-                noOfChildren,
-                wrapperStyle,
-                componentProps,
-              }}
-              onJSONChange={({ noOfChildren, wrapperStyle, componentProps }) => {
-                this.setState({
-                  activeVariation: {
-                    name: activeVariation.name,
-                    state: {
-                      noOfChildren,
-                      wrapperStyle,
-                      componentProps,
-                    },
-                  },
-                });
-              }}
+              json={{ noOfChildren, wrapperStyle, componentProps }}
+              onJSONChange={this.handleJSONChange}
             />
           </Col>
           <Col xs={24} md={12}>
-            <Typography.Title level={3}>Usage <Typography.Text type={'secondary'}>(Read-Only)</Typography.Text></Typography.Title>
+            <Typography.Title level={3}>
+              Usage <Typography.Text type="secondary">(Read-Only)</Typography.Text>
+            </Typography.Title>
             <Variations />
             <EditorViewer
               noOfChildren={noOfChildren}

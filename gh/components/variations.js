@@ -7,7 +7,7 @@ const mainState = {
     infiniteLoop: false,
     gutter: 12,
     activePosition: 'center',
-    chevronWidth: 60,
+    chevronwidth: 60,
     disableSwipe: false,
     alwaysShowChevrons: false,
   },
@@ -22,7 +22,7 @@ export default [
       componentProps: {
         numberOfCards: 2,
         slidesToScroll: 2,
-        outsideChevron: true,
+        outsidechevron: true,
         showSlither: false,
         firstAndLastGutter: false,
       },
@@ -34,7 +34,7 @@ export default [
       componentProps: {
         numberOfCards: 2,
         slidesToScroll: 2,
-        outsideChevron: true,
+        outsidechevron: true,
         showSlither: true,
         firstAndLastGutter: true,
       },
@@ -47,7 +47,7 @@ export default [
       componentProps: {
         numberOfCards: 3,
         slidesToScroll: 3,
-        outsideChevron: false,
+        outsidechevron: false,
         showSlither: false,
         firstAndLastGutter: false,
       },
@@ -60,7 +60,7 @@ export default [
       componentProps: {
         numberOfCards: 3,
         slidesToScroll: 3,
-        outsideChevron: false,
+        outsidechevron: false,
         showSlither: false,
         firstAndLastGutter: true,
       },
@@ -72,7 +72,7 @@ export default [
       componentProps: {
         numberOfCards: 1,
         slidesToScroll: 1,
-        outsideChevron: false,
+        outsidechevron: false,
         showSlither: true,
         firstAndLastGutter: true,
       },

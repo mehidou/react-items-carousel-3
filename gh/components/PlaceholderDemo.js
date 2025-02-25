@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Button, Icon, Typography, Col } from 'antd';
+import { Button, Typography, Col } from 'antd';
+import { RightOutlined, LeftOutlined, LoadingOutlined } from '@ant-design/icons'; // ✅ Import des icônes
 import ItemsCarousel from '../../src/ItemsCarousel';
 import { createImageChildren, PlaceholderItem } from './CarouselSlideItem';
 import DemoHeader from './DemoHeader';
 import EditorViewer from './EditorViewer';
 import CenteredRow from './CenteredRow';
 
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 
 export class PlaceholderDemo extends React.Component {
   state = {
@@ -16,64 +16,71 @@ export class PlaceholderDemo extends React.Component {
     isLoading: true,
   };
 
+  handleLoading = () => {
+    this.setState({ isLoading: false });
+  };
+
   render() {
-    const isLoading = this.state.isLoading;
+    const { isLoading, activeItemIndex } = this.state;
     const noOfChildren = 8;
     const children = createImageChildren(noOfChildren);
 
     const componentProps = {
       enablePlaceholder: true,
       numberOfPlaceholderItems: 3,
-      numberOfCars: 3,
+      numberOfCards: 3, // ✅ Correction de "numberOfCars" -> "numberOfCards"
       gutter: 12,
       slidesToScroll: 2,
-      chevronWidth: 60,
-      outsideChevron: true,
+      chevronwidth: 60,
+      outsidechevron: true,
       showSlither: false,
       firstAndLastGutter: false,
     };
 
     const wrapperStyle = {
-      padding: "0 60px", maxWidth: 1000, margin: '0 auto'
+      padding: '0 60px',
+      maxWidth: 1000,
+      margin: '0 auto'
     };
 
     return (
       <Wrapper>
         <DemoHeader
-          title={'With Placeholder'}
-          description={'Useful when fetching carousel items from API'}
+          title="With Placeholder"
+          description="Useful when fetching carousel items from API"
         />
         <div style={wrapperStyle}>
           <ItemsCarousel
             {...componentProps}
             placeholderItem={<PlaceholderItem />}
-            activeItemIndex={this.state.activeItemIndex}
-            requestToChangeActive={value => this.setState({ activeItemIndex: value })}
+            activeItemIndex={activeItemIndex}
+            requestToChangeActive={(value) => this.setState({ activeItemIndex: value })}
             rightChevron={
               <Button shape="circle">
-                <Icon type="right" />
+                <RightOutlined /> {/* ✅ Icône corrigée */}
               </Button>
             }
             leftChevron={
               <Button shape="circle">
-                <Icon type="left" />
+                <LeftOutlined /> {/* ✅ Icône corrigée */}
               </Button>
             }
-            children={isLoading ? [] : children}
-          />
+          >
+            {isLoading ? [] : children}
+          </ItemsCarousel>
         </div>
-        {
-          isLoading && (
-            <CenteredRow withMaxWidth justify={'center'} type={'flex'}>
-              <Col>
-                <Button onClick={() => this.setState({ isLoading: false })}>
-                  <Icon type="loading" style={{ marginRight: 10 }} />
-                  {'Click me to finish loading'}
-                </Button>
-              </Col>
-            </CenteredRow>
-          )
-        }
+
+        {isLoading && (
+          <CenteredRow withMaxWidth justify="center" type="flex">
+            <Col>
+              <Button onClick={this.handleLoading}>
+                <LoadingOutlined style={{ marginRight: 10 }} /> {/* ✅ Icône corrigée */}
+                Click me to finish loading
+              </Button>
+            </Col>
+          </CenteredRow>
+        )}
+
         <CenteredRow withMaxWidth>
           <Col span={24}>
             <EditorViewer

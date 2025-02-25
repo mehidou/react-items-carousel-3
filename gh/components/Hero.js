@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Tag, Icon } from 'antd';
-
+import { Tag } from 'antd';
+import { GithubOutlined } from '@ant-design/icons';
 
 const HeroWrapper = styled.div`
   min-height: 50vh;
@@ -26,7 +26,7 @@ const Version = styled(Tag)`
 const Hero = ({ version }) => (
   <HeroWrapper>
     <Title>
-      <Icon style={{ marginRight: 10 }} type="github" />
+      <GithubOutlined style={{ marginRight: 10 }} />
       react-items-carousel
     </Title>
     <SubTitle>

@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Button, Icon, Col } from 'antd';
+import { Button, Col } from 'antd';
+import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 import ItemsCarousel from '../../src/ItemsCarousel';
 import { createImageChildren } from './CarouselSlideItem';
 
 const noOfItems = 7;
 const noOfCards = 2;
-const chevronWidth = 60;
+const chevronwidth = 60;
 
 const Wrapper = styled.div`
   padding: 0 20px;
@@ -28,15 +29,15 @@ export default () => {
         requestToChangeActive={setActiveItemIndex}
         rightChevron={
           <Button shape="circle">
-            <Icon type="right" />
+            <RightOutlined />
           </Button>
         }
         leftChevron={
           <Button shape="circle">
-            <Icon type="left" />
+            <LeftOutlined />
           </Button>
         }
-        chevronWidth={chevronWidth}
+        chevronwidth={chevronwidth}
         children={carouselItems}
       />
     </Wrapper>

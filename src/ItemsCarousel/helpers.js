@@ -26,7 +26,7 @@ export const calculateItemWidth = ({
   return (containerWidth - allGutter) / numberOfCards;
 }
 
-export const calculateItemLeftGutter = ({
+export const calculateItemleftgutter = ({
   index,
   firstAndLastGutter,
   gutter,

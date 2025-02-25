@@ -6,10 +6,10 @@ import ItemsCarousel from '../../src/ItemsCarousel';
 const noOfItems = 12;
 const noOfCards = 3;
 const autoPlayDelay = 2000;
-const chevronWidth = 40;
+const chevronwidth = 40;
 
 const Wrapper = styled.div`
-  padding: 0 ${chevronWidth}px;
+  padding: 0 ${chevronwidth}px;
   max-width: 1000px;
   margin: 0 auto;
 `;
@@ -59,8 +59,8 @@ export default class AutoPlayCarousel extends React.Component {
           requestToChangeActive={this.onChange}
           rightChevron={<button>{'>'}</button>}
           leftChevron={<button>{'<'}</button>}
-          chevronWidth={chevronWidth}
-          outsideChevron
+          chevronwidth={chevronwidth}
+          outsidechevron
           children={carouselItems}
         />
       </Wrapper>

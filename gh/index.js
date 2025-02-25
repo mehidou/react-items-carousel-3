@@ -1,6 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import 'antd/dist/antd.css';
+import ReactDOM from 'react-dom/client';
+import 'antd/dist/reset.css';
+
 import PlaygroundPage from './page';
 
-ReactDOM.render(<PlaygroundPage />, document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <PlaygroundPage />
+);

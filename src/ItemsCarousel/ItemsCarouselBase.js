@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import userPropTypes from './userPropTypes';
 import {
   calculateItemWidth,
-  calculateItemLeftGutter,
+  calculateItemleftgutter,
   calculateItemRightGutter,
   showLeftChevron,
   showRightChevron,
@@ -29,11 +29,13 @@ const SliderItemsWrapper = styled.div`
   flex-wrap: nowrap;
 `;
 
-const SliderItem = styled.div`
+const SliderItem = styled.div.withConfig({
+  shouldForwardProp: (prop) => !['leftgutter', 'rightGutter'].includes(prop),
+})`
   width: ${(props) => props.width}px;
   flex-shrink: 0;
   margin-right: ${(props) => props.rightGutter}px;
-  margin-left: ${(props) => props.leftGutter}px;
+  margin-left: ${(props) => props.leftgutter}px;
 `;
 
 const CarouselChevron = styled.div`
@@ -63,12 +65,12 @@ class ItemsCarouselBase extends React.Component {
     ) {
       this.props.onActiveStateChange({
         ...this.getScrollState(),
-      })
+      });
     }
   }
 
   getScrollState = () => {
-    let {
+    const {
       numberOfCards,
       activeItemIndex,
       activePosition,
@@ -90,8 +92,8 @@ class ItemsCarouselBase extends React.Component {
         numberOfChildren: items.length,
         numberOfCards,
         slidesToScroll,
-      })
-    }
+      }),
+    };
   };
 
   renderList({ items, translateX, containerWidth, measureRef }) {
@@ -126,7 +128,7 @@ class ItemsCarouselBase extends React.Component {
                 numberOfCards,
                 showSlither,
               })}
-              leftGutter={calculateItemLeftGutter({
+              leftgutter={calculateItemleftgutter({
                 index,
                 firstAndLastGutter,
                 gutter,
@@ -147,16 +149,13 @@ class ItemsCarouselBase extends React.Component {
   }
 
   render() {
-    let {
-      // Props coming from withContainerWidth
+    const {
       containerWidth,
       measureRef,
-      // Props coming from withSwipe
       touchRelativeX,
       onWrapperTouchStart,
       onWrapperTouchEnd,
       onWrapperTouchMove,
-      // Props coming from user
       gutter,
       numberOfCards,
       firstAndLastGutter,
@@ -181,6 +180,7 @@ class ItemsCarouselBase extends React.Component {
       isFirstScroll,
       isLastScroll,
     } = this.getScrollState();
+
     const _showRightChevron = rightChevron && (alwaysShowChevrons || !isLastScroll);
     const _showLeftChevron = leftChevron && (alwaysShowChevrons || !isFirstScroll);
 
@@ -205,8 +205,7 @@ class ItemsCarouselBase extends React.Component {
             translateX,
           })}
         />
-        {
-          _showRightChevron &&
+        {_showRightChevron && (
           <CarouselRightChevron
             chevronWidth={chevronWidth}
             outsideChevron={outsideChevron}
@@ -215,9 +214,8 @@ class ItemsCarouselBase extends React.Component {
           >
             {rightChevron}
           </CarouselRightChevron>
-        }
-        {
-          _showLeftChevron &&
+        )}
+        {_showLeftChevron && (
           <CarouselLeftChevron
             chevronWidth={chevronWidth}
             outsideChevron={outsideChevron}
@@ -226,7 +224,7 @@ class ItemsCarouselBase extends React.Component {
           >
             {leftChevron}
           </CarouselLeftChevron>
-        }
+        )}
       </CarouselWrapper>
     );
   }
@@ -240,18 +238,15 @@ ItemsCarouselBase.defaultProps = {
 
 ItemsCarouselBase.propTypes = {
   ...userPropTypes,
-  // Props coming from withCarouselValues
   items: PropTypes.arrayOf(PropTypes.node).isRequired,
   activeItemTranslateX: PropTypes.number.isRequired,
   nextItemIndex: PropTypes.number.isRequired,
   previousItemIndex: PropTypes.number.isRequired,
-  // Props coming from withContainerWidth
   containerWidth: PropTypes.number.isRequired,
   measureRef: PropTypes.oneOfType([
-    PropTypes.func, // for legacy refs
-    PropTypes.shape({ current: PropTypes.object })
+    PropTypes.func,
+    PropTypes.shape({ current: PropTypes.object }),
   ]).isRequired,
-  // Props coming from withSwipe
   touchRelativeX: PropTypes.number.isRequired,
   onWrapperTouchStart: PropTypes.func,
   onWrapperTouchEnd: PropTypes.func,
